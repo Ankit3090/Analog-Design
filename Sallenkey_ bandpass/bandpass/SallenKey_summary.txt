@@ -1,0 +1,28 @@
+Analog Signal Processing: Sallen-Key Band-Pass Filter Report
+
+1. Selected Component Values
+The following practical component values were selected to achieve a ~10 kHz center frequency, a quality factor (Q) ≥ 2, and a passband gain between 3 dB and 10 dB:
+- Filter Capacitors: C1 = 10 nF, C2 = 10 nF
+- Filter Resistors: R1 = 6.8 kohm, R2 = 1.3 kohm, R3 = 2.4 kohm
+- Amplifier Gain Resistors: Ri = 10 kohm, Rf = 11 kohm
+- Active Device: UniversalOpamp2
+- Power Supplies: Dual ±15 V
+
+2. Theoretical vs. Measured Transfer-Function Parameters
+The LTspice AC sweep (.ac) and transient simulation (.tran) confirmed the theoretical calculations with high precision:
+- Center Frequency (f0): Calculated = 9.82 kHz | Measured = ~9.82 kHz
+- Quality Factor (Q): Calculated = 4.60 | Measured = ~4.60
+- Passband Gain: Calculated = 7.23 dB (2.30 V/V) | Measured = ~7.2 dB (2.3 Vpk output for 1 Vpk input)
+- Bandwidth (BW): Calculated = 2.13 kHz | Measured = ~2.1 kHz
+- Lower Cutoff (fL): Calculated = 8.81 kHz | Measured = ~8.8 kHz
+- Upper Cutoff (fH): Calculated = 10.95 kHz | Measured = ~10.9 kHz
+
+3. Component Roles and Filter Dynamics
+- C1, C2, R1, R2, R3 (Primary RC Network): These components form the core frequency-selective network. C1 and C2 act as the reactive energy storage elements that create the high-pass and low-pass roll-offs. R1, R2, and R3 determine the specific center frequency (f0) of the passband. 
+- R2 (Positive Feedback Path): R2 is critical as it routes a portion of the amplified output back to the primary RC junction. This positive feedback significantly boosts the quality factor (Q) and sharpens the filter's selectivity.
+- Rf, Ri (Amplifier Gain Network): These establish the non-inverting gain factor, K, of the operational amplifier (where K = 1 + Rf/Ri). For this design, K = 2.1.
+
+4. Impact of Component Changes on Filter Tuning
+- Shifting Center Frequency (f0): To shift the center frequency higher, the values of the primary RC components (R1, R2, R3, C1, C2) must be decreased. Increasing their values will shift f0 lower.
+- Altering Selectivity, Q, and Bandwidth via Gain (K): The amplifier gain (K) is the most sensitive parameter for shaping the filter's selectivity. Increasing Rf (which increases K) makes the filter highly selective: it sharply increases Q, narrows the bandwidth, and raises the passband gain. Conversely, decreasing Rf widens the bandwidth and lowers Q. 
+- Stability Warning: If the gain K is pushed too high (approaching K = 3 for equal-value capacitor designs), the bandwidth coefficient becomes negative. This causes the filter poles to move into the right-half plane, resulting in severe distortion and sustained oscillation.
