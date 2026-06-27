@@ -1,0 +1,29 @@
+1. Buck Converter
+What it is: A step-down DC-to-DC power converter. It takes a higher DC voltage and efficiently steps it down to a lower, regulated DC voltage.
+
+Engineering application: This is fundamental for power management systems. For instance, stepping down a nominal battery voltage (like 12V or 24V) to stable 5V or 3.3V logic levels to power microcontrollers or sensors.
+
+2. Low Pass Filter
+What it is: A signal conditioning circuit designed to allow low-frequency signals to pass through while blocking (attenuating) high-frequency noise or signals.
+
+Engineering application: Essential for cleaning up noisy sensor readings, stabilizing analog-to-digital converter (ADC) inputs, or removing high-frequency interference in instrumentation lines.
+
+3. MCU (Microcontroller Unit) Protection
+What it is: Interface circuitry designed to safeguard delicate microcontroller pins from harsh electrical environments, voltage spikes, or over-voltage conditions.
+
+Engineering application: Critical for automotive, aerospace, or industrial hardware reliability. It ensures that transients, electrostatic discharge (ESD), or miswiring do not fry the main processing unit.
+
+4. Sallen-Key Bandpass Filter
+What it is: A classic, active second-order filter topology built using an operational amplifier (op-amp). This specific configuration allows a specific range ("band") of frequencies to pass while blocking everything else above or below that band.
+
+Engineering application: Widely used in audio processing, communication systems, and selective signal extraction where you need to isolate a specific frequency carrier or tone.
+
+5. MEMS (Micro-Electro-Mechanical Systems)
+What it is: Interface and signal conditioning electronics tailored for tiny, integrated sensors—such as accelerometers, gyroscopes, or pressure sensors.
+
+Engineering application: These form the core of inertial measurement units (IMUs) used for orientation, drone stabilization, vibration monitoring, and avionics navigation.
+
+6. Zener Supply Project
+What it is: A basic, robust voltage regulation circuit utilizing a Zener diode to maintain a fixed, stable reference voltage despite fluctuations in the input power supply or load current.
+
+Engineering application: Often used as an inexpensive, reliable local voltage reference or low-current local power supply in analog sub-systems.
