@@ -1,0 +1,20 @@
+Final Overall Summary
+
+The original LT1074 buck converter structure was preserved. The baseline startup and steady-state regulation test confirmed that the converter regulates near 5 V after startup. The measured baseline OUT_AVG was 5.123 V, which passes the required 4.8 V to 5.2 V target range.
+
+The selectable load test confirmed that the converter maintains regulation for 5 ohm, 10 ohm, and 20 ohm load cases. The average output voltage stayed close to 5.12 V for all tested loads, and the load current scaled correctly with load resistance.
+
+The passive output ripple filter was added after OUT, with the filtered node labeled OUT_FILT. The original feedback divider remained connected to OUT. The filter reduced ripple for the 5 ohm and 10 ohm load cases. The 20 ohm filtered ripple was also lower than the original OUT ripple in the final run.
+
+The switch-node waveform was plotted and showed expected switching behavior after startup. The baseline measured switching frequency was approximately 101.55 kHz.
+
+The input disturbance test was added using a 0.1 ohm series input resistor. The source-side node was labeled VIN_SRC, and the LT1074 input-side node was labeled IN. The test showed small input droop while the output remained regulated near 5 V.
+
+Overall baseline regulation status: PASS
+Load-case regulation status: PASS
+Ripple-filter result: PASS
+Switch-node behavior: PASS
+Input disturbance result: PASS
+
+Note:
+The 20 ohm automatic switching-frequency measurement is likely not representative because the light-load switch-node waveform may include narrow pulses or pulse skipping. This should be documented as a measurement limitation and verified visually from the switch-node plot.

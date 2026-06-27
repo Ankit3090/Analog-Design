@@ -1,0 +1,37 @@
+MEMS Piezoresistive Pressure Sensor Readout Summary
+
+1. Behavioral Model Description:
+The MEMS pressure sensor is modeled as a simplified four-resistor Wheatstone bridge. The mechanical strain from pressure is represented by a behavioral parameter named "PRESSURE" (ranging from 0 to 1), which directly modulates the resistance values to simulate piezoresistive behavior.
+
+2. Bridge Resistors & Behavior:
+- Nominal Bridge Resistance: 5 kΩ
+- Supply Voltage (VDD): 3.3 V
+- Resistors decreasing with pressure: R1 and R4 follow the equation R = 5k * (1 - 0.01*PRESSURE)
+- Resistors increasing with pressure: R2 and R3 follow the equation R = 5k * (1 + 0.01*PRESSURE)
+This push-pull configuration unbalances the bridge, generating a measurable differential voltage (VDIFF).
+
+3. Ideal Readout Gain Block:
+The instrumentation amplifier is modeled as an ideal behavioral voltage source, mapping the differential voltage to a single-ended ground-referenced output.
+- Differential Gain: 50
+- Common-Mode Offset (Zero-Pressure Output): 1.65 V (Mid-supply)
+- Equation: VOUT = 1.65 + 50 * V(VDIFF)
+
+4. Simulated Pressure Cases & Measurements:
+A parameter sweep was simulated for three specific pressure cases, yielding the following measured values:
+
+Case 1: PRESSURE = 0
+- Measured VDIFF: 0.000 V (0 mV)
+- Measured VOUT:  1.650 V
+
+Case 2: PRESSURE = 0.5
+- Measured VDIFF: 0.0165 V (16.5 mV)
+- Measured VOUT:  2.475 V
+
+Case 3: PRESSURE = 1.0
+- Measured VDIFF: 0.033 V (33.0 mV)
+- Measured VOUT:  3.300 V
+
+5. Conclusion:
+The simulation confirms that at zero pressure, the bridge achieves perfect balance, resulting in a zero differential voltage and centering the output cleanly at the 1.65V mid-supply reference. 
+As pressure increases monotonically, the bridge unbalances linearly, demonstrating predictable pressure sensitivity. 
+The ideal gain block successfully amplifies the millivolt-level differential signal (up to 33mV) into a macroscopic, measurable voltage range utilizing the full 3.3V supply rail.

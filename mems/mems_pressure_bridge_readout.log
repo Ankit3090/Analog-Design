@@ -1,0 +1,16 @@
+LTspice 26.0.2 for Windows
+Circuit: C:\Users\Administrator\Desktop\543112ed-610f-47ed-8382-6cc7182d5489\mems_pressure_bridge_readout.net
+Start Time: Wed Jun 24 10:30:07 2026
+solver = Normal
+Maximum thread count: 4
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration succeeded in finding operating point.
+Direct Newton iteration succeeded in finding operating point.
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 0.334 seconds.
+
+Files loaded:
+C:\Users\Administrator\Desktop\543112ed-610f-47ed-8382-6cc7182d5489\mems_pressure_bridge_readout.net
+
