@@ -1,0 +1,39 @@
+Zener Supply Simulation Summary
+--------------------------------
+
+1. Topology Description
+The circuit is an AC-to-DC linear power supply utilizing a full-wave bridge rectifier, a 1000uF smoothing capacitor (C1), a 470 ohm series dropping resistor (R_SERIES), and a reverse-biased 5.1V Zener diode (DZEN) acting as a shunt regulator.
+
+2. Component Models Used
+- Bridge Diodes: Local SPICE equivalent of 1N4007
+- Zener Diode: Local SPICE equivalent of 1N4733A (5.1V)
+
+3. Simulation Directives
+- Transient run: .tran 0 100m 0 100u
+- Stepped loads: RLOAD = 1k and RLOAD = 470
+- Measurement Window: 80 ms to 100 ms (Steady-state)
+
+
+4. VRECT (Unregulated DC) Results
+- VRECT_PEAK: 18.28 V (Matches theoretical 20Vpk - 2Vf bridge drop)
+- VRECT_RIPPLE_PP: 0.24 V
+- Ripple Frequency: 100.00 Hz (Double the 50 Hz input frequency)
+
+5. VOUT (Regulated DC) Results
+- 1k Load: VOUT_AVG = 5.183 V (Min: 5.182 V, Max: 5.184 V, Ripple: 1.6 mV)
+- 470 Load: VOUT_AVG = 5.164 V (Min: 5.163 V, Max: 5.165 V, Ripple: 1.8 mV)
+
+
+6. Currents and Power
+- Load Current: 5.18 mA (1k load) / 10.98 mA (470 load)
+- R_SERIES Current: ~27.6 mA (constant for both cases)
+- Zener Reverse Current: 22.4 mA (1k load) / 16.6 mA (470 load)
+  * Note: Zener current magnitude is measured as -I(DZEN) to reflect reverse-bias conduction.
+- R_SERIES Average Power: ~359 mW (calculated via V^2/R across the resistor)
+
+7. Load Regulation Calculation
+- Formula: 100 * (VOUT_light - VOUT_heavy) / VOUT_heavy
+- Calculation: 100 * (5.1837 - 5.1645) / 5.1645 = 0.37%
+
+8. Final Conclusion: PASS
+The circuit successfully maintains VOUT between 4.59 V and 5.61 V for both load conditions. The Zener diode safely shunts excess current under light load (1k) and delivers required current under heavy load (470), proving effective voltage regulation.

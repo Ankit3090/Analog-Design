@@ -1,0 +1,87 @@
+LTspice 26.0.2 for Windows
+Circuit: C:\Users\Administrator\Desktop\bf36c641-4f33-4232-8113-e47e697611d4\zener_supply.net
+Start Time: Sat Jun 27 06:07:18 2026
+
+.step rload=470
+solver = Normal
+Maximum thread count: 4
+tnom = 27
+temp = 27
+method = trap
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step rload=1000
+.OP point found by inspection.
+.OP point found by inspection.
+Total elapsed time: 0.628 seconds.
+
+Files loaded:
+C:\Users\Administrator\Desktop\bf36c641-4f33-4232-8113-e47e697611d4\zener_supply.net
+C:\Users\Administrator\AppData\Local\LTspice\lib\cmp\standard.dio
+
+
+Measurement: vout_avg
+  step	AVG(V(VOUT) )	FROM	TO
+     1	5.16451916796	0.08	0.1
+     2	5.18372559276	0.08	0.1
+
+Measurement: vout_min
+  step	MIN(V(VOUT) )	FROM	TO
+     1	5.16361570358	0.08	0.1
+     2	5.18292140961	0.08	0.1
+
+Measurement: vout_max
+  step	MAX(V(VOUT) )	FROM	TO
+     1	5.16540241241	0.08	0.1
+     2	5.18451404572	0.08	0.1
+
+Measurement: vout_ripple_pp
+  step	'VOUT_MAX-VOUT_MIN'
+     1	0.00178670883179
+     2	0.0015926361084
+
+Measurement: vrect_peak
+  step	MAX(V(VRECT) )	FROM	TO
+     1	18.2874450684	0.08	0.1
+     2	18.2875900269	0.08	0.1
+
+Measurement: vrect_min
+  step	MIN(V(VRECT) )	FROM	TO
+     1	18.0473690033	0.08	0.1
+     2	18.0478076935	0.08	0.1
+
+Measurement: vrect_ripple_pp
+  step	'VRECT_PEAK-VRECT_MIN'
+     1	0.240076065063
+     2	0.239782333374
+
+Measurement: iload_avg
+  step	AVG((V(VOUT)/{RLOAD}) )	FROM	TO
+     1	0.0109883386552	0.08	0.1
+     2	0.00518372559276	0.08	0.1
+
+Measurement: irser_avg
+  step	AVG(((V(VRECT)-V(VOUT))/470) )	FROM	TO
+     1	0.0276680231581	0.08	0.1
+     2	0.0276276486667	0.08	0.1
+
+Measurement: izener_rev_avg
+  step	AVG((-I(DZEN)) )	FROM	TO
+     1	0.0166796844864	0.08	0.1
+     2	0.0224439230363	0.08	0.1
+
+Measurement: prser_avg
+  step	AVG((((V(VRECT)-V(VOUT))*(V(VRECT)-V(VOUT)))/470) )	FROM	TO
+     1	0.359805343719	0.08	0.1
+     2	0.358756039778	0.08	0.1
+
+Measurement: t_ripple
+  step	t_ripple	FROM	TO
+     1	0.0100000000525	0.0799999986005	0.0899999986529
+     2	0.00999999940605	0.0799999991588	0.0899999985648
+
+Measurement: f_vrect_ripple
+  step	'1/T_RIPPLE'
+     1	99.9999994753
+     2	100.00000594
