@@ -1,0 +1,39 @@
+Project Title: High-Voltage Interlock (HVIL) Loop Circuit Design
+System Overview
+The High-Voltage Interlock (HVIL) loop is a critical safety infrastructure for high-voltage systems. Its primary function is to ensure that power buses are de-energized before a service disconnect or connector breach occurs, protecting both the equipment and the operator. This design implements a discrete, isolated current-loop architecture operating on dual voltage rails, utilizing a 12V supply and an onboard 5V logic supply.
+
+Sub-Circuit Architecture
+Input Voltage Translator
+This block converts an incoming 12V square-wave diagnostic signal down to safe 5V TTL levels. A pull-up network interfaces with the Pulse Width Modulation (PWM) source, while a Zener clamping diode protects downstream components from overvoltage. An RC filter stabilizes the translated transition edges to ensure clean signal integrity.
+
+Active High-Side Current Limiter
+This stage regulates the current supplied to the loop using a discrete feedback topology. The main pass element, Q_pass1 (a PNP transistor), acts as a variable resistor controlled by Q_bias (NPN). A sensing loop formed by a 22 Ohm resistor across the emitter-base junction of Q_limit1 monitors the load. Once load current drives the sense voltage drop toward 0.7V, Q_limit1 conducts, pulling down the base of Q_pass1 and actively clamping the output current.
+
+Fault Injection Unit
+This unit employs single-pole single-throw (SPST) switches to route unconditioned 12V power lines onto the sensing path to simulate real-world wiring harness faults. Diodes, such as D_block2, act as one-way check valves, successfully blocking reverse high-voltage paths to preserve upstream electronics during a harness short.
+
+Simulation Performance and Analysis
+Transient simulations executed via the Ngspice engine confirm the design operates reliably. The translator accurately steps the levels, and the parameter sweep demonstrates consistent current clamping across a variable 20 to 50 Ohm load range. The fault injector successfully validates protective shutoff, and the fanned current steps in the milliamp range confirm the circuit limits fault currents successfully.
+
+Conclusion
+The proposed HVIL loop circuit design successfully meets the requirements for a robust, isolated diagnostic safety mechanism. By integrating active high-side current regulation with a dedicated fault injection stage, the circuit provides reliable protection for sensitive logic control systems against harsh electrical environments. The simulation results confirm that the design maintains current clamping within the desired milliamp operational range and effectively blocks hazardous high-voltage transients during fault conditions.
+
+Limitations and Practical Considerations
+While the Ngspice transient simulations validate the theoretical logic of the HVIL design, implementation within the target physical environment requires consideration of non-ideal factors:
+
+Component Tolerances: The simulation assumes nominal values for resistors and transistor gains. Real-world components exhibit variance that may affect the precise current limit threshold.
+
+Thermal Effects: Transistors and sense resistors generate heat during operation. As junction temperature increases, the transistor performance will shift, potentially altering the current limit setpoint.
+
+Parasitics: The simulation excludes PCB trace inductance and parasitic capacitance, which become significant factors in high-frequency PWM switching environments.
+
+Future Scope and Recommendations
+To advance this design from a simulated model to a production-ready hardware prototype, the following steps are recommended:
+
+Thermal Derating Analysis: Perform power dissipation calculations for the sense resistor (Power = Current squared times Resistance) and the pass transistor (Power = Voltage drop times Load current) to ensure safe operation at maximum ambient temperatures.
+
+Creepage and Clearance Design: Ensure the PCB layout complies with high-voltage isolation standards to prevent arcing between the HVIL signal path and other logic traces.
+
+Physical Prototyping and Validation: Assemble the circuit on a test bench to perform physical current-step response tests and verify the blocking diode performance under actual 12V fault conditions.
+
+Electromagnetic Compatibility (EMC) Filtering: Incorporate additional common-mode chokes or ferrite beads if the device must meet stringent industrial electromagnetic compatibility standards.

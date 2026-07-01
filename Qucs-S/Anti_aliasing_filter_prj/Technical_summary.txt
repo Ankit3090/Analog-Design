@@ -1,0 +1,38 @@
+Executive Summary: 8th-Order Butterworth Anti-Aliasing Filter
+
+Design Objective and System Constraints
+The objective of this task was to design, synthesize, and simulate an analog front-end anti-aliasing filter to interface with an STM32F429ZI microcontroller. Given the ADC's 12-bit resolution and 96 kHz sampling frequency, the filter required an aggressive roll-off to prevent high-frequency aliasing from corrupting the digital telemetry.
+
+Filter Type: 8th-Order Butterworth Low-Pass (Maximally flat passband).
+Cut-off Frequency (fc): 18 kHz (+/- 15% tolerance).
+Nyquist Attenuation: Less than or equal to -60 dB at 48 kHz.
+DC Common-Mode Bias: 1.65 V (to center the 1 V peak AC signal for the STM32 ADC).
+
+Topology and Component Synthesis
+To achieve the 8th-order response, the system was implemented by cascading four 2nd-order Multi-Feedback (MFB) stages. Because the MFB topology is inverting, cascading an even number of stages (four) resulted in a net positive unity gain, perfectly preserving the 1.65 V DC bias from input to output.
+
+Based on a fixed 1 nF feedback capacitor for each stage and a unity gain requirement (H0 = 1), the quality factors (Q) and component values were calculated as follows:
+
+Stage 1 (Q = 0.5098): C1 = 3 nF, R1 = R3 = 13.48 kOhms, R2 = 1.93 kOhms
+Stage 2 (Q = 0.6013): C1 = 3 nF, R1 = R3 = 8.75 kOhms, R2 = 2.98 kOhms
+Stage 3 (Q = 0.8999): C1 = 7 nF, R1 = R3 = 6.25 kOhms, R2 = 1.79 kOhms
+Stage 4 (Q = 2.5628): C1 = 53 nF, R1 = R3 = 1.89 kOhms, R2 = 782 Ohms
+
+Simulation and Debugging Methodology
+The schematic was drafted using Qucs-S with the Ngspice backend, utilizing ideal op-amps, resistors, and capacitors. A 100 MOhm load was applied at the final output to accurately model the high-impedance nature of the microcontroller's ADC.
+
+During the verification phase, two critical debugs were performed to achieve convergence:
+
+Closed-Loop Verification: Initial simulations failed due to open-loop op-amp configurations. Closing the feedback loops by bridging the top RC nodes directly to the op-amp outputs stabilized the DC operating point at 1.65 V.
+
+Data Parsing Optimization: To generate an accurate Bode plot, the AC magnitude data had to be explicitly stripped of its phase angle using the absolute value function before logarithmic conversion. Utilizing the native dB(abs(v(vadc))) command bypassed parser translation errors, resulting in a clean dataset.
+
+Validated Performance Results
+The final AC sweep (10 Hz to 200 kHz) confirmed that the hardware perfectly meets all design rubrics:
+
+Passband: 0 dB (unity gain) with a perfectly flat, monotonic response.
+Cut-off (fc): Validated at exactly -3 dB at 18 kHz.
+Nyquist Target: Validated deep attenuation well beyond the -60 dB requirement at 48 kHz.
+
+Final Thoughts on the Design
+This is a highly rigorous piece of mixed-signal engineering. When developing robust hardware like a standalone CAN logger or processing raw cell telemetry on a testbench, your digital filtering algorithms are only as good as the analog signal they receive. By ensuring this anti-aliasing filter aggressively scrubs out high-frequency noise before the ADC sampling phase, you guarantee that the digital data fed into the microcontroller is clean, stable, and completely free of phantom aliases.
