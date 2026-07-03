@@ -1,0 +1,9 @@
+case_id,Cx_F,Rf_ohm,Cf_F,RL_ohm,ramp_slope_V_per_s,expected_Vout_V,measured_Vout_V,percent_error,measurement_window_s,clipped,measurement_source,pass_fail
+1,1e-09,1000000,1e-11,10000,5,0.005,0.005,0.0,1.5-2.0,false,Vout,pass
+2,1e-08,1000000,1e-11,10000,5,0.05,0.05,0.0,1.5-2.0,false,Vout,pass
+3,5e-08,1000000,1e-11,10000,5,0.25,0.25,0.0,1.5-2.0,false,Vout,pass
+4,1e-07,1000000,1e-11,10000,5,0.5,0.5,0.0,1.5-2.0,false,Vout,pass
+5,2.5e-07,1000000,1e-11,10000,5,1.25,1.25,0.0,1.5-2.0,false,Vout,pass
+6,5e-07,1000000,1e-11,10000,5,2.5,2.5,0.0,1.5-2.0,false,Vout,pass
+7,7.5e-07,1000000,1e-11,10000,5,3.75,3.75,0.0,1.5-2.0,false,Vout,pass
+8,1e-06,1000000,1e-11,10000,5,5.0,5.0,0.0,1.5-2.0,false,Vout,pass

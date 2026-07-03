@@ -1,0 +1,31 @@
+* Qucs 26.1.0  C:/Users/Administrator/Desktop/c8d4b8de-a3ad-41bf-af83-d12d6991a284/C-V_Converter_prj/C-V_Converter.sch
+.INCLUDE "C:/Program Files/Qucs-S/share/qucs-s/xspice_cmlib/include/ngspice_mathfunc.inc"
+.PARAM y = 1
+.PARAM Cval = 1n
+Rf summing_node Vout  1MEG tc1=0.0 tc2=0.0 
+Cf summing_node Vout  10P 
+RL 0 Vout  10K tc1=0.0 tc2=0.0 
+B_OP1 Vout 0 V = 1E6*V(0,summing_node)*u(15-1E6*V(0,summing_node))*u(1E6*V(0,summing_node)-(-15))+15*u(1E6*V(0,summing_node)-15)+(-15)*u((-15)-1E6*V(0,summing_node))
+C2 Vin summing_node  {CVAL} 
+Vin Vin  0 PWL(0 0 2 10 2.5 10)
+
+.control
+
+option interp
+let number_c2 = 0
+echo "STEP tr1.c2" > spice4qucs.tr1.cir.res
+foreach  c2_act 1n  10n  50n  100n  250n  500n  750n  1u 
+alter C2 = $c2_act
+tran 0.0125628 2.5 0 
+write spice4qucs.tr1._swp.plot v(Vin) v(Vout) v(summing_node)
+set appendwrite
+echo "$&number_c2  $c2_act" >> spice4qucs.tr1.cir.res
+let number_c2 = number_c2 + 1
+end
+unset appendwrite
+destroy all
+reset
+
+exit
+.endc
+.END

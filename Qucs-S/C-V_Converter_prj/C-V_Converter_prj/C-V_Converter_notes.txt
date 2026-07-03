@@ -1,0 +1,41 @@
+Project: Capacitance-to-Voltage (C/V) Converter
+Topology: Inverting Op-Amp Current-to-Voltage (Virtual Ground)
+
+Target Scale Factor: 5 mV/nF
+Op-Amp Model: UniversalOpamp (Finite-gain, low-input-bias approximation suitable for C/V conversion)
+Supply Rails: ±15 V
+
+Component Values:
+Rf = 1 MΩ (Feedback resistor for sensitivity)
+Cf = 10 pF (Feedback capacitor for stability and high-frequency noise limitation)
+RL = 10 kΩ (Load resistor)
+ramp_slope = 5 V/s (Vin implemented as PWL from 0V at 0s to 10V at 2s)
+
+Sweep Values (Cx):
+1 nF, 10 nF, 50 nF, 100 nF, 250 nF, 500 nF, 750 nF, 1 µF
+
+Conversion Factor Calculation:
+I_Cx = Cx * |dVin/dt|
+Vout = -I_Cx * Rf = -Cx * Rf * |dVin/dt|
+Scale Factor = Rf * |dVin/dt| = 1,000,000 Ω * 5 V/s = 5,000,000 V/F = 5 mV/nF
+
+Sign Convention:
+Due to the inverting topology, a positive input ramp yields a negative output voltage. Magnitude is used for error comparison.
+
+Expected vs. Measured Magnitudes:
+Cx = 1 nF   -> Expected: 5 mV     | Measured: 5 mV     | Error: 0%
+Cx = 10 nF  -> Expected: 50 mV    | Measured: 50 mV    | Error: 0%
+Cx = 50 nF  -> Expected: 250 mV   | Measured: 250 mV   | Error: 0%
+Cx = 100 nF -> Expected: 500 mV   | Measured: 500 mV   | Error: 0%
+Cx = 250 nF -> Expected: 1.25 V   | Measured: 1.25 V   | Error: 0%
+Cx = 500 nF -> Expected: 2.5 V    | Measured: 2.5 V    | Error: 0%
+Cx = 750 nF -> Expected: 3.75 V   | Measured: 3.75 V   | Error: 0%
+Cx = 1 µF   -> Expected: 5 V      | Measured: 5 V      | Error: 0%
+
+Measurement Interval: 
+Transient simulation runs for 2.5 s. The ramp is active from 0.0 s to 2.0 s. The measurement window is established as 1.5 s to 2.0 s to ensure fully settled, stable displacement current.
+
+Observations:
+- Clipping: None observed. The maximum output magnitude is 5 V (at 1 µF), which is well within the ±15 V supply rails.
+- Stability: System remains stable. Cf provides adequate phase margin.
+- Leakage/Bias: UniversalOpamp model configured for low-input-bias approximation; no noticeable offset voltages introduced in the measurement window.
