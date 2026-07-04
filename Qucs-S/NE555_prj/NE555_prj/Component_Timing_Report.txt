@@ -1,0 +1,32 @@
+Component Timing Report: Analog Sequential Controller
+
+Design Overview
+The sequential logic is driven by an asymmetric duty-cycle master clock feeding into three parallel, first-order RC low-pass filters (leaky integrators). This topology translates the clock pulses into a stable, cumulative DC voltage rise to sequentially trigger the 12V (120 Ohm) relay coils at their 6V activation thresholds.
+
+1. Master Clock Configuration (NE555 Timer)
+The NE555 timer is configured in astable mode to produce a high-duty-cycle asymmetric pulse train. 
+* R1 (Discharge): 470 kOhm
+* R2 (Timing): 47 kOhm
+* C1 (Timing Capacitor): 10 uF
+* Calculated Timing: Yields a total clock period of approximately 3.9 seconds with a duty cycle of roughly 92% (Thigh ≈ 3.58s, Tlow ≈ 0.32s).
+
+2. Relay Activation Stages (RC Delay Networks)
+Each relay stage utilizes an RC timing network driven by the NE555 output to achieve cumulative, chatter-free latching.
+
+* Stage A (100 mA Plateau):
+    * Resistor (R_A): 39 kOhm
+    * Capacitor (C_A): 100 uF
+    * Activation Time: Reaches the 6V threshold at t ≈ 3.1 seconds.
+
+* Stage B (200 mA Plateau):
+    * Resistor (R_B): 100 kOhm
+    * Capacitor (C_B): 100 uF
+    * Activation Time: Reaches the 6V threshold at t ≈ 8.0 seconds.
+
+* Stage C (300 mA Plateau):
+    * Resistor (R_C): 220 kOhm
+    * Capacitor (C_C): 100 uF
+    * Activation Time: Reaches the 6V threshold at t ≈ 17.6 seconds.
+
+3. System Performance
+The selected component values ensure that all three current plateaus (100 mA, 200 mA, and 300 mA) are strictly achieved within the 50-second transient simulation envelope. Each active plateau is sustained for well over the 1-second minimum requirement with zero switching chatter.

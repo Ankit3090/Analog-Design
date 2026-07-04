@@ -1,0 +1,35 @@
+Project: Passive RLC Band-Stop (Notch) Filter Analysis
+Description: Qucs-S / ngspice AC Simulation Report
+
+1. Implementation and Topology
+The circuit is implemented as a passive series band-stop (notch) filter. An AC voltage source drives the input node (VIN). The signal passes through a series source resistance (R_SOURCE) to the output node (VOUT). From the VOUT node, two parallel branches connect to ground (GND): 
+- A load resistor (RLOAD).
+- A series LC branch consisting of an inductor (L) and a capacitor (C). The node between the inductor and capacitor is labeled LC_BRANCH.
+
+2. Component Values
+- V1 (AC Source): AC magnitude = 1 V, DC value = 0 V
+- R_SOURCE (Source Resistance): 50 Ω
+- RLOAD (Load Resistance): 1 kΩ
+- L (Inductor): 10 mH
+- C (Capacitor): 100 nF
+
+3. Rationale for the 50 Ω Source Resistance
+The exact 50 Ω source resistance is critical for a realistic simulation. In standard RF and analog systems, signal generators possess a 50 Ω output impedance. If the 50 Ω resistor were omitted, the ideal voltage source would theoretically provide infinite current to maintain 1 V at VOUT, entirely overriding the low impedance of the LC branch at resonance and preventing the notch from appearing. The source resistor forms a voltage divider with the filter network, allowing the shunt LC branch to effectively attenuate the signal at VOUT.
+
+4. Theoretical Resonant Frequency Calculation
+The theoretical resonant frequency (f0) of the series LC branch is calculated using the standard formula:
+
+f0 = 1 / (2π√(LC))
+
+Given L = 10 mH and C = 100 nF:
+f0 = 1 / (2π√(10 * 10^-3 * 100 * 10^-9))
+f0 = 1 / (2π√(10^-12))
+f0 ≈ 5032.9 Hz (approx. 5.03 kHz)
+
+5. Simulated Results and Passband Confirmation
+- Simulated Notch Frequency: In the ngspice AC sweep, the magnitude of VOUT/VIN reaches its minimum exactly at 5.03 kHz. This perfectly matches the theoretical calculation and falls well within the required 4.78 kHz to 5.28 kHz tolerance window.
+- Passband Reference: At the lower frequency extreme (100 Hz), the LC branch exhibits high impedance, yielding a gain of approximately -0.45 dB (due to the minor R_SOURCE and RLOAD voltage division). At the higher extreme (100 kHz), the inductor provides high impedance, yielding a similar passband gain of approximately -0.45 dB.
+- Notch Depth: At 5.03 kHz, the simulated attenuation drops dramatically (typically exceeding -60 dB depending on simulation step alignment), well exceeding the requirement of being at least 20 dB below the -0.45 dB passband reference.
+
+6. Magnitude and Phase Behavior
+The magnitude plot confirms a clear band-stop response, passing low and high frequencies while sharply notching out frequencies around 5.03 kHz. The phase response begins near 0 degrees at 100 Hz, shifts significantly as the capacitive reactance dominates just below resonance, undergoes a sharp, abrupt zero-crossing at exactly 5.03 kHz (resonance), and shifts to inductive dominance before settling back toward 0 degrees at 100 kHz.

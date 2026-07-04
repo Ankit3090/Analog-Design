@@ -1,0 +1,28 @@
+<Qucs Schematic 26.1.0>
+<Properties>
+  <View=-892,0,3188,2307,0.385543,0,14>
+  <Grid=10,10,0>
+  <DataSet=rlc_bandstop_qucs.dat>
+  <DataDisplay=rlc_bandstop_qucs.sch>
+  <OpenDisplay=0>
+  <Script=rlc_bandstop_qucs.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect -370 1388 1574 1129 3 #c0c0c0 1 10 1 0 5000 100000 1 -28.636 2 2.68638 1 -1 0.1 1 315 0 225 1 0 0 "" "" "">
+	<"ngspice/ac.gain_db" #0000ff 1 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

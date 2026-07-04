@@ -1,0 +1,21 @@
+* Qucs 26.1.0  C:/Users/Administrator/Desktop/e55fe98d-9c2d-4d3d-b078-a187ffb0b17a/rlc_bandstop_prj/rlc_bandstop_qucs.sch
+.INCLUDE "C:/Program Files/Qucs-S/share/qucs-s/xspice_cmlib/include/ngspice_mathfunc.inc"
+.PARAM y=1
+V1 VIN 0 DC 0 SIN(0 1 1K 0 0 0) AC 1 ACPHASE 0
+R1 VIN VOUT  50 tc1=0.0 tc2=0.0 
+L1 VOUT LC_BRANCH  10M 
+C1 0 LC_BRANCH  100N 
+RLoad 0 VOUT  1K tc1=0.0 tc2=0.0 
+
+.control
+
+let y=1
+ac dec 100 100 100k 
+let Gain_dB=20*log10(abs(V(VOUT)))
+write spice4qucs.ac1.plot v(LC_BRANCH) v(VIN) v(VOUT) Gain_dB
+destroy all
+reset
+
+exit
+.endc
+.END
