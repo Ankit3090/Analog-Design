@@ -1,0 +1,28 @@
+<Qucs Schematic 26.1.0>
+<Properties>
+  <View=0,0,1573,875,1,0,0>
+  <Grid=10,10,0>
+  <DataSet=Microstrip.dat>
+  <DataDisplay=Microstrip.sch>
+  <OpenDisplay=0>
+  <Script=Microstrip.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 170 640 704 371 3 #c0c0c0 1 00 1 0 1 1e+07 1 -0.000421663 0.0001 3.8333e-05 1 -1 0.2 1 315 0 225 1 0 0 "" "" "">
+	<"dB_21" #0000ff 1 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

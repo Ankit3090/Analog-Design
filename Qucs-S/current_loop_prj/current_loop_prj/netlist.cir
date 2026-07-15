@@ -1,0 +1,24 @@
+* Qucs 26.1.0  C:/Users/Administrator/Desktop/465527cd-9bf7-444a-9360-c72060df620e/current_loop_prj/current_loop.sch
+.INCLUDE "C:/Program Files/Qucs-S/share/qucs-s/xspice_cmlib/include/ngspice_mathfunc.inc"
+RS_TX _net0 VTOP  1MEG tc1=0.0 tc2=0.0 
+RL_LINE VTOP V_IN  100 tc1=0.0 tc2=0.0 
+RDISPLAY V_IN V_MID  250 tc1=0.0 tc2=0.0 
+RCONTROLLER 0 V_MID  500 tc1=0.0 tc2=0.0 
+V_SUPPLY_24V _net0 0 DC 24
+IS_LOOP _net0 VTOP DC 0
+
+.control
+
+op
+print v(VTOP) v(V_IN) v(V_MID)   > spice4qucs.dc1.ngspice.dc.print
+destroy all
+reset
+
+dc is_loop 0 0.024 0.001
+write spice4qucs.sw1.plot v(VTOP) v(V_IN) v(V_MID)
+destroy all
+reset
+
+exit
+.endc
+.END

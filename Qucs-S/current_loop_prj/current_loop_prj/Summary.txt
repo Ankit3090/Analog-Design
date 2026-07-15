@@ -1,0 +1,20 @@
+Current Loop Receiver and Load Compliance Summary
+
+Topology: Industrial 4 to 20 mA current loop receiver. Features 24 V DC loop supply, ideal current source (IS_LOOP), and series load and line resistances.
+
+Components and Parameters:
+V_SUPPLY_24V: 24 V DC
+RS_TX (Source Shunt): 1 MOhm
+RL_LINE (Line Resistance): 100 Ohm
+RDISPLAY (Display Resistor): 250 Ohm
+RCONTROLLER (Controller Resistor): 500 Ohm
+
+Simulation Results:
+0 mA (Fault): VDISPLAY=0V, VCONTROLLER=0V, VN=0V, VHEADROOM=24V
+4 mA (Min): VDISPLAY=1V, VCONTROLLER=2V, VN=3V, VHEADROOM=20.6V
+12 mA (Mid): VDISPLAY=3V, VCONTROLLER=6V, VN=9V, VHEADROOM=13.8V
+20 mA (Max): VDISPLAY=5V, VCONTROLLER=10V, VN=15V, VHEADROOM=7V
+24 mA (Over range): VDISPLAY=6V, VCONTROLLER=12V, VN=18V, VHEADROOM=3.6V
+
+Conclusion:
+The receiver maintains linear 4 to 20 mA operation. Compliance headroom is positive (3.6 V) at 24 mA, confirming the 24 V supply is sufficient for the 850 Ohm total burden.

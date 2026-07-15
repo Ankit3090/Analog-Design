@@ -1,0 +1,33 @@
+<Qucs Schematic 26.1.0>
+<Properties>
+  <View=-227,-160,1724,909,1,152,147>
+  <Grid=10,10,0>
+  <DataSet=ACTIVE-MIXER-MODEL.dat>
+  <DataDisplay=ACTIVE-MIXER-MODEL.sch>
+  <OpenDisplay=0>
+  <Script=ACTIVE-MIXER-MODEL.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 210 420 511 234 3 #c0c0c0 1 00 1 0 0.2 1 1 -0.1 0.5 1.1 1 -0.1 0.5 1.1 315 0 225 1 0 0 "" "" "">
+	<"ngspice/tran.v(neg)" #0000ff 1 3 0 0 0>
+	<"ngspice/tran.v(pos)" #ff0000 1 3 0 0 0>
+  </Rect>
+  <Rect 190 760 574 237 3 #c0c0c0 1 00 1 0 0.2 1 1 -0.1 0.5 1.1 1 -0.1 0.5 1.1 315 0 225 1 0 0 "" "" "">
+	<"ngspice/ac.v(neg)" #0000ff 1 3 0 0 0>
+	<"ngspice/ac.v(pos)" #ff0000 1 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

@@ -1,0 +1,30 @@
+<Qucs Schematic 26.1.0>
+<Properties>
+  <View=-240,-60,1333,815,1,0,0>
+  <Grid=10,10,0>
+  <DataSet=current_loop.dat>
+  <DataDisplay=current_loop.sch>
+  <OpenDisplay=0>
+  <Script=current_loop.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 170 591 527 421 3 #c0c0c0 1 00 1 0 0.002 0.024 1 -2 2 20 1 -1 0.2 1 315 0 225 1 0 0 "Loop Current (mA)" "" "">
+	<"ngspice/sw1.v(v_mid)" #ff0000 0 3 0 0 0>
+	<"ngspice/sw1.v(v_in)" #ff00ff 1 3 0 0 0>
+	<"ngspice/sw1.v(vtop)" #ff00ff 1 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

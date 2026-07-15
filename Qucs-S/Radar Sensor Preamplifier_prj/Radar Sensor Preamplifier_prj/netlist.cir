@@ -1,0 +1,37 @@
+* Qucs 26.1.0  C:/Users/Administrator/Desktop/be77a476-c8b8-4d98-9a08-2c636c5c62ad/Radar Sensor Preamplifier_prj/REFERENCE_RECON.sch
+.INCLUDE "C:/Program Files/Qucs-S/share/qucs-s/xspice_cmlib/include/ngspice_mathfunc.inc"
+.SUBCKT fet _net9 _net8 _net10 
+C3 _net0 _net1  234F 
+GSRC1 _net2 _net3 _net1 _net0 0.069
+C4 _net4 _net5  5F 
+C1 _net1 _net6  39F 
+C2 _net4 _net7  31F 
+L2 _net7 _net8  16.7P 
+L1 _net9 _net5  6P 
+R1 _net5 _net1  0.9 tc1=0.0 tc2=0.0 
+R4 _net3 _net0  1.9 tc1=0.0 tc2=0.0 
+R2 _net6 _net2  3.6 tc1=0.0 tc2=0.0 
+R6 _net2 _net7  2.5 tc1=0.0 tc2=0.0 
+C5 _net3 _net2  14F 
+R5 _net4 _net3  2.4 tc1=0.0 tc2=0.0 
+L3 _net10 _net4  6.4P 
+R3 _net3 _net2  312 tc1=0.0 tc2=0.0 
+.ENDS
+.PARAM dB_21=dB(S[2,1])
+VP1 _net0 0 dc 0 ac 0.632456 SIN(0 0.632456 1MEG) portnum 1 z0 50
+VP2 _net1 0 dc 0 ac 0.632456 SIN(0 0.632456 1MEG) portnum 2 z0 50
+L1 _net0 _net2  1.1N 
+L2 0 _net2  4N 
+XSUB1 _net2 _net1 0 fet
+
+.control
+
+let dB_21=dB(S[2,1])
+SP LIN 39 1G 20G 1
+write spice4qucs.sp1.plot S_1_1 Y_1_1 Z_1_1 Cy_1_1 S_1_2 Y_1_2 Z_1_2 Cy_1_2 S_2_1 Y_2_1 Z_2_1 Cy_2_1 S_2_2 Y_2_2 Z_2_2 Cy_2_2 Rn NF SOpt NFmin
+destroy all
+reset
+
+exit
+.endc
+.END
