@@ -1,0 +1,32 @@
+* Qucs 26.1.0  C:/Users/Administrator/Desktop/67ca13c7-beba-4d48-86b5-6cbbd4c5b63b/Multiple‑Feedback Bandpass Filter_prj/Bandpass Filter.sch
+.INCLUDE "C:/Program Files/Qucs-S/share/qucs-s/xspice_cmlib/include/ngspice_mathfunc.inc"
+B_OP1 Out 0 V = 1E6*V(0,_net1)*u(15-1E6*V(0,_net1))*u(1E6*V(0,_net1)-(-15))+15*u(1E6*V(0,_net1)-15)+(-15)*u((-15)-1E6*V(0,_net1))
+V1 _net2 0 DC 0 SIN(0 1 1K 0 0 0) AC 1 ACPHASE 0
+R1 _net2 _net0  6.8K tc1=0.0 tc2=0.0 
+R2 _net1 Out  150K tc1=0.0 tc2=0.0 
+R3 0 _net0  2.2K tc1=0.0 tc2=0.0 
+C1 _net0 _net1  10N 
+C2 _net0 Out  10N 
+
+.control
+
+option interp
+let number_r2 = 0
+echo "STEP ac1.r2" > spice4qucs.ac1.cir.res
+foreach  r2_act 135000 136579 138158 139737 141316 142895 144474 146053 147632 149211 150789 152368 153947 155526 157105 158684 160263 161842 163421 165000 
+alter R2 = $r2_act
+ac dec 25 10 100k 
+let Gain_dB=20*log10(abs(v(Out)))
+let Phase_deg=phase(v(Out))
+write spice4qucs.ac1._swp.plot v(Out) Gain_dB Phase_deg
+set appendwrite
+echo "$&number_r2  $r2_act" >> spice4qucs.ac1.cir.res
+let number_r2 = number_r2 + 1
+end
+unset appendwrite
+destroy all
+reset
+
+exit
+.endc
+.END

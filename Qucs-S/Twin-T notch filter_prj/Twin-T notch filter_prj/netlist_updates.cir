@@ -1,0 +1,41 @@
+* Qucs 26.1.0  C:/Users/Administrator/Desktop/091ca565-1c35-45ec-8b6c-e02d928c8797/TwinT_Notch_prj/twin_t_notch.sch
+.INCLUDE "C:/Program Files/Qucs-S/share/qucs-s/xspice_cmlib/include/ngspice_mathfunc.inc"
+V1 VIN 0 DC 0 SIN(0 1 1K 0 0 0) AC 1 ACPHASE 0
+R1 VIN MIDT  16K tc1=0.0 tc2=0.0 
+R2 MIDT VOUT  16K tc1=0.0 tc2=0.0 
+C1 0 MIDT  20N 
+C2 VIN MIDB  10N 
+C3 MIDB VOUT  10N 
+R3 0 MIDB  8K tc1=0.0 tc2=0.0 
+R4 0 VOUT  1MEG tc1=0.0 tc2=0.0 
+C4 0 MIDT  20N 
+C5 VIN_TRAN MIDB  10N 
+C6 MIDB VOUT_T  10N 
+R8 0 VOUT_T  1MEG tc1=0.0 tc2=0.0 
+R5 VIN_TRAN MIDT  15.915K tc1=0.0 tc2=0.0 
+R6 MIDT VOUT_T  15.915K tc1=0.0 tc2=0.0 
+R7 0 MIDB  7.957K tc1=0.0 tc2=0.0 
+V3 VIN_TRAN _net0 DC 0 SIN(0 100M 100 0 0 0) AC 100M ACPHASE 0
+V4 _net0 _net1 DC 0 SIN(0 100M 1K 0 0 0) AC 100M ACPHASE 0
+V5 _net1 0 DC 0 SIN(0 100M 10K 0 0 0) AC 100M ACPHASE 0
+
+.control
+
+ac dec 17 1 1meg 
+write spice4qucs.ac1.plot v(MIDB) v(MIDT) v(VIN) v(VIN_TRAN) v(VOUT) v(VOUT_T)
+destroy all
+reset
+
+ac lin 801 800 1200 
+write spice4qucs.ac2.plot v(MIDB) v(MIDT) v(VIN) v(VIN_TRAN) v(VOUT) v(VOUT_T)
+destroy all
+reset
+
+tran 1e-05 0.2 0 
+write spice4qucs.tr1.plot v(MIDB) v(MIDT) v(VIN) v(VIN_TRAN) v(VOUT) v(VOUT_T)
+destroy all
+reset
+
+exit
+.endc
+.END

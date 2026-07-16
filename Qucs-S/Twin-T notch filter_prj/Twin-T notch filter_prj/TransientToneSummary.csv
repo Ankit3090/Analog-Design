@@ -1,0 +1,4 @@
+Frequency (Hz),Input Amplitude (mVpk),Output Amplitude (mVpk),Attenuation Status
+100,100,~100,Pass (<1.5 dB)
+1000,100,<3.16,Pass (>30 dB Rejection)
+10000,100,~100,Pass (<1.5 dB)

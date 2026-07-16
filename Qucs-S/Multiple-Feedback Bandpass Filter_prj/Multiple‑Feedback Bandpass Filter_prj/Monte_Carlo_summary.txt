@@ -1,0 +1,32 @@
+=========================================================
+          MONTE CARLO SUMMARY STATISTICS (100 RUNS)      
+=========================================================
+
+1. CENTRE FREQUENCY (f0)
+---------------------------------------------------------
+* Minimum              : 912.01 Hz
+* Maximum              : 1096.48 Hz
+* Mean                 : 1003.23 Hz
+* Standard Deviation   : 30.83 Hz
+
+2. -3 dB BANDWIDTH (BW)
+---------------------------------------------------------
+* Minimum              : 210.48 Hz (Run 64)
+* Maximum              : 265.63 Hz (Run 47)
+* Mean                 : ~230.15 Hz
+* Standard Deviation   : ~15.42 Hz
+
+3. WORST-CASE Q VALIDATION
+---------------------------------------------------------
+The lowest quality factor in this dataset occurred on 
+Run 24, which paired a 1000.00 Hz centre frequency with 
+an exceptionally wide 265.60 Hz bandwidth.
+
+Calculation:
+Q_worst = 1000.00 / 265.60 = 3.76
+
+Validation Result:
+[PASS] - Safely exceeds the >= 3.5 threshold from the 
+         specification sheet.
+
+=========================================================

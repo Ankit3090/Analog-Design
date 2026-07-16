@@ -1,0 +1,54 @@
+===================================================================
+                         ENGINEERING NOTE
+===================================================================
+
+SUBJECT: Multiple-Feedback (MFB) Bandpass Filter Design & Simulation
+
+1. TOPOLOGY OVERVIEW
+-------------------------------------------------------------------
+The multiple-feedback (MFB) bandpass filter utilizes an inverting 
+amplifier configuration with two feedback paths. A capacitor (C2) 
+routes from the output to a central summing node, and a resistor 
+(R2) routes from the output directly to the op-amp's inverting 
+input. This topology achieves a stable, high-Q bandpass response 
+using a single active device and zero inductors.
+
+2. TRANSFER FUNCTION & DESIGN EQUATIONS
+-------------------------------------------------------------------
+Assuming an ideal op-amp, applying Kirchhoff's Current Law yields 
+the transfer function:
+
+H(s) = [ -s / (R1 * C2) ] / [ s^2 + s * (C1 + C2) / (C1 * C2 * R2) 
+       + (1 / (C1 * C2 * R2)) * (1/R1 + 1/R3) ]
+
+Setting C1 = C2 = C, the defining characteristics are:
+* Center Frequency (f0) = (1 / (2 * pi * C)) * sqrt((R1 + R3) / (R1 * R2 * R3))
+* Passband Gain (|A0|)  = R2 / (2 * R1)
+* Quality Factor (Q)    = (1 / 2) * sqrt((R2 * (R1 + R3)) / (R1 * R3))
+
+3. DESIGN RATIONALE & COMPONENT SELECTION
+-------------------------------------------------------------------
+To meet the constraints of E12 resistors and standard capacitors:
+* Capacitors: 10 nF was selected to maintain resistor values in the 
+  optimal 1 kOhm to 100 kOhm range, minimizing both thermal noise 
+  and op-amp loading.
+* Resistors: A target gain of 10 V/V (20 dB) dictates R2 is approx 
+  20 * R1. Selecting E12 values R2 = 150 kOhm and R1 = 6.8 kOhm 
+  yields an acceptable gain of 11.03 (20.85 dB). Solving the f0 
+  equation for 1 kHz using these values identifies R3 approx 2.2 kOhm.
+
+4. THEORETICAL VS. SIMULATED VALIDATION
+-------------------------------------------------------------------
+The simulated nominal values exactly match the theoretical 
+predictions, verifying the mathematical model:
+
+* Target f0   : 1000 Hz 
+  Simulated   : 1007.6 Hz (Meets 1 kHz +/- 5% threshold)
+
+* Target Gain : 20 dB 
+  Simulated   : 20.85 dB (Meets 20 +/- 1 dB threshold)
+
+* Target Q    : 5.0 
+  Simulated   : 4.75 (Meets 5 +/- 0.5 threshold)
+
+===================================================================
